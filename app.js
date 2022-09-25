@@ -9,17 +9,16 @@ btn.addEventListener('click',()=>{
     fetch(`${url}${inpWord}`)
     .then((response) => response.json())
     .then((data)=> {
-        console.log(data[0]);
         result.innerHTML = `
         <div class="word">
             <h3>${inpWord}</h3>
-            <button>
-                <i class="fas fa-volume-up"></i>
+            <button onclick="playSound()">
+                <i class="fa fa-volume-up"></i>
             </button>
         </div>
         <div class="details">
             <p>${data[0].meanings[0].partOfSpeech}</p>
-            <p>${data[0].phonetics[1].text}</p>
+            <p>${data[0].phonetic || ""}</p>
         </div>
         <p class="word-meaning">
             ${data[0].meanings[0].definitions[0].definition}
@@ -28,6 +27,14 @@ btn.addEventListener('click',()=>{
             ${data[0].meanings[0].definitions[0].example || ""}
         </p>
         `;
+        sound.setAttribute('src', `${data[0].phonetics[1].audio}`||'');
+    })
+    .catch(()=>{
+        result.innerHTML = `<h3 class="error">Couldn't Find the word</h3>`;
     });
 
 });
+
+function playSound(){
+    sound.play();
+}
