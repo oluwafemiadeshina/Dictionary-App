@@ -30,7 +30,11 @@ btn.addEventListener('click',()=>{
         sound.setAttribute('src', `${data[0].phonetics[1].audio}`||'');
     })
     .catch(()=>{
-        result.innerHTML = `<h3 class="error">Couldn't Find the word</h3>`;
+        result.innerHTML = `
+        <p>Couldn't find the word</p>`;
+
+
+
     });
 
 });
